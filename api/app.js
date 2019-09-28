@@ -4,6 +4,7 @@
 const express = require('express');
 const morgan = require('morgan');
 const bodyParser = require('body-parser');
+const cors = require('cors');
 
 const db = require('./db/database')
 
@@ -29,6 +30,9 @@ app.use(morgan('dev'));
     console.error('Unable to connect to the database:', err);
   });
 })();
+
+// Enable all CORS Requests
+app.use(cors());
 
 // set express to use bodyParser to read request bodies
 app.use(bodyParser.json());
