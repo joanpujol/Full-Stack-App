@@ -1,10 +1,20 @@
-import React from 'react';
+import React, { useState, useEffect } from "react";
 import logo from './logo.svg';
 import './App.css';
+import './styles/global.css';
+
+import withContext from "./Context";
+import Header from './components/Header';
 
 function App() {
+
+  const HeaderWithContext = withContext(Header);
+
   return (
     <div className="App">
+
+    <HeaderWithContext />
+
       <header className="App-header">
         <img src={logo} className="App-logo" alt="logo" />
         <p>
