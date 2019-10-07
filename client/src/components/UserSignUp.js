@@ -1,13 +1,18 @@
 import React,{Component} from 'react';
 
 class UserSignUp extends Component {
+
+    handleSubmit = (e) => {
+        // TODO Properly handle submit
+    }
+
     render() {
         return (
-            <div class="bounds">
-                <div class="grid-33 centered signin">
+            <div className="bounds">
+                <div className="grid-33 centered signin">
                     <h1>Sign Up</h1>
                     <div>
-                        <form>
+                        <form onSubmit={this.handleSubmit}>
                             <div>
                                 <input 
                                     id="firstName"
@@ -58,9 +63,9 @@ class UserSignUp extends Component {
                                     value=""
                                 />
                             </div>
-                            <div class="grid-100 pad-bottom">
-                                <button class="button" type="submit">Sign Up</button>
-                                <button class="button button-secondary" >Cancel</button></div>
+                            <div className="grid-100 pad-bottom">
+                                <button className="button" type="submit">Sign Up</button>
+                                <button className="button button-secondary" >Cancel</button></div>
                         </form>
                     </div>
                 <p>&nbsp;</p>

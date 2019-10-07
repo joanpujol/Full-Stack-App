@@ -7,6 +7,7 @@ import Courses from './components/Courses';
 import UserSignIn from './components/UserSignIn';
 import UserSignUp from './components/UserSignUp'
 import CourseDetail from './components/CourseDetail';
+import CreateCourse from './components/CreateCourse';
 
 function App() {
 
@@ -19,6 +20,7 @@ function App() {
       <CourseDetail />
       <UserSignIn />
       <UserSignUp />
+      <CreateCourse />
     </>
   );
 }
