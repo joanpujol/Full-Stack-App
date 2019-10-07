@@ -1,4 +1,5 @@
 import React, {Component} from 'react';
+import { Link } from 'react-router-dom';
 
 class UserSignIn extends Component {
 
@@ -57,7 +58,7 @@ class UserSignIn extends Component {
                 <p>&nbsp;</p>
                 <p>
                     Don't have a user account?&nbsp;
-                    <a href="sign-up.html">Click here</a> to sign up!
+                    <Link to="/signup">Click here</Link> to sign up!
                 </p>
                 </div>
             </div>

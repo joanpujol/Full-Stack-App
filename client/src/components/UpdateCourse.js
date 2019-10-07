@@ -1,16 +1,37 @@
-import React, {Component} from 'react';
+import React, { Component } from 'react';
+import axios from 'axios';
 
 class UpdateCourse extends Component {
+
+    state = {
+        courseData: []
+    };
+
+    componentDidMount() {
+        const courseId = this.props.match.params.id;
+        axios.get(`http://localhost:5000/api/courses/${courseId}`)
+            .then(response => {
+                this.setState({
+                    courseData: response.data
+                });
+            })
+            .catch(error => {
+                console.error(error);
+            });
+    }
 
     handleSubmit = (e) => {
         // TODO Properly handle submit
     }
 
     handleCancelClick = (e) => {
-        // TODO Properly handle cancel click
+        e.preventDefault();
+        const courseId = this.props.match.params.id;
+        this.props.history.push(`/courses/${courseId}`);
     }
 
     render () {
+        const {title, description, estimatedTime, materialsNeeded} = this.state.courseData;
         return (
             <div className="bounds course--detail">
                 <h1>Update Course</h1>
@@ -25,7 +46,7 @@ class UpdateCourse extends Component {
                                         name="title"
                                         type="text"
                                         className="input-title course--title--input"
-                                        placeholder="Course title..."
+                                        placeholder={title}
                                         value=""
                                     />        
                                 </div>
@@ -37,8 +58,7 @@ class UpdateCourse extends Component {
                                         id="description" 
                                         name="description" 
                                         className="" 
-                                        placeholder="Course description...">
-                                        Lorem ipsum dolor sit amet
+                                        placeholder={description} >
                                     </textarea>
                                 </div>
                             </div>
@@ -54,7 +74,7 @@ class UpdateCourse extends Component {
                                                 name="estimatedTime"
                                                 type="text"
                                                 className="course--time--input"
-                                                placeholder="How many hours will it take?"
+                                                placeholder={estimatedTime}
                                                 value=""
                                             />        
                                         </div>
@@ -66,8 +86,7 @@ class UpdateCourse extends Component {
                                                 id="materialsNeeded"
                                                 name="materialsNeeded"
                                                 className=""
-                                                placeholder="List materials...">
-                                                Materials Needed
+                                                placeholder={materialsNeeded} >
                                             </textarea>
                                         </div>
                                     </li>

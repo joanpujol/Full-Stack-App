@@ -1,4 +1,5 @@
-import React, { Component } from 'react';      
+import React, { Component } from 'react';
+import { Link } from 'react-router-dom';
 import axios from 'axios';
 
 class CourseDetail extends Component {  
@@ -8,7 +9,8 @@ class CourseDetail extends Component {
     };
 
     componentDidMount() {
-        axios.get(`http://localhost:5000/api/courses/2`)
+        const courseId = this.props.match.params.id;
+        axios.get(`http://localhost:5000/api/courses/${courseId}`)
             .then(response => {
                 this.setState({
                     courseData: response.data
@@ -21,7 +23,7 @@ class CourseDetail extends Component {
 
     displayDescription = (description) => {
         if(description) {
-            const descriptionParagraphs = description.split('\n\n').map( (paragrpah, index) => {
+            const descriptionParagraphs = description.split("\n\n").map((paragrpah, index) => {
                 return <p key={index}> {paragrpah} </p>
             });
             return descriptionParagraphs
@@ -30,7 +32,7 @@ class CourseDetail extends Component {
 
     displayMaterialsNeeded = (materialsNeeded) => {
         if(materialsNeeded) {
-            const materialsList = materialsNeeded.substring(1).split('\n*').map( (material, index) => {
+            const materialsList = materialsNeeded.substring(1).split("\n*").map((material, index) => {
                 return <li key={index}> {material} </li>
             });
             return (
@@ -42,13 +44,17 @@ class CourseDetail extends Component {
     }
 
     render() {
+        const courseId = this.props.match.params.id;
         const {title, description, estimatedTime, materialsNeeded} = this.state.courseData;
         return (
             <div>
                 <div className="actions--bar">
                     <div className="bounds">
                         <div className="grid-100">
-                        <a className="button button-secondary" to="/" >Return to List</a></div>
+                            <Link className="button" to={`/courses/${courseId}/update`}>Update Course</Link>
+                            <Link className="button" to="/">Delete Course</Link>
+                            <Link className="button button-secondary" to="/">Return to List</Link>
+                        </div>
                     </div>
                 </div>
                 <div className="bounds course--detail">

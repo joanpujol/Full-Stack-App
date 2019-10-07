@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import { Link } from 'react-router-dom';
 
 export default class Header extends Component {
 	render() {
@@ -11,12 +12,12 @@ export default class Header extends Component {
                      {authUser ? 
                         <nav>
                             <span>Welcome, {authUser.firstName}!</span>
-                            <a className="signout" to="/signout">Sign Out</a>
+                            <Link className="signout" to="/signout">Sign Out</Link>
                         </nav>
                         :
                         <nav>
-                            <a className="signup" to="/signup">Sign Up</a> 
-					    	<a className="signin" to="/signin">Sign In</a>
+                            <Link className="signup" to="/signup">Sign Up</Link>
+			                <Link className="signin" to="/signin">Sign In</Link>
 					    </nav>
 				    }
 			  </div>
