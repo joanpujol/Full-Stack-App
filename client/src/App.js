@@ -8,6 +8,7 @@ import UserSignIn from './components/UserSignIn';
 import UserSignUp from './components/UserSignUp'
 import CourseDetail from './components/CourseDetail';
 import CreateCourse from './components/CreateCourse';
+import UpdateCourse from './components/UpdateCourse'
 
 function App() {
 
@@ -21,6 +22,7 @@ function App() {
       <UserSignIn />
       <UserSignUp />
       <CreateCourse />
+      <UpdateCourse />
     </>
   );
 }
