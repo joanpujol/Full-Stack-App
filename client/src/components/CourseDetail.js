@@ -19,7 +19,30 @@ class CourseDetail extends Component {
             });
     }
 
-    render() {          
+    displayDescription = (description) => {
+        if(description) {
+            const descriptionParagraphs = description.split('\n\n').map( (paragrpah, index) => {
+                return <p key={index}> {paragrpah} </p>
+            });
+            return descriptionParagraphs
+        }
+    }
+
+    displayMaterialsNeeded = (materialsNeeded) => {
+        if(materialsNeeded) {
+            const materialsList = materialsNeeded.substring(1).split('\n*').map( (material, index) => {
+                return <li key={index}> {material} </li>
+            });
+            return (
+                <ul>
+                    {materialsList}
+                </ul>
+            )
+        }
+    }
+
+    render() {
+        const {title, description, estimatedTime, materialsNeeded} = this.state.courseData;
         return (
             <div>
                 <div className="actions--bar">
@@ -32,10 +55,10 @@ class CourseDetail extends Component {
                     <div className="grid-66">
                         <div className="course--header">
                             <h4 className="course--label">Course</h4>
-                            <h3 className="course--title">{this.state.courseData.title}</h3>
+                            <h3 className="course--title">{title}</h3>
                         </div>
                         <div className="course--description">
-                            This is the description
+                            {this.displayDescription(description)}
                         </div>
                     </div>
                     <div className="grid-25 grid-right">
@@ -43,13 +66,11 @@ class CourseDetail extends Component {
                             <ul className="course--stats--list">
                                 <li className="course--stats--list--item">
                                     <h4>Estimated Time</h4>
-                                    <h3>45h</h3>
+                                    <h3>{estimatedTime}</h3>
                                 </li>
                                 <li className="course--stats--list--item">
                                     <h4>Materials Needed</h4>
-                                    <ul>
-                                        <li>A thing!</li>
-                                    </ul>                   
+                                    {this.displayMaterialsNeeded(materialsNeeded)}
                                 </li>
                             </ul>
                         </div>
