@@ -49,4 +49,50 @@ export default class Data {
       throw new Error();
     }
   }
+
+  async createCourse(courseData, username, password) {
+    const response = await this.api("/courses", "POST", courseData, true, {username, password});
+    console.log(response);
+    if (response.status === 201) {
+      return [];
+    }
+    else if (response.status === 400) {
+      return response.json().then(data => {
+        return data.error.errors;
+      });
+    }
+    else {
+      throw new Error();
+    }
+  }
+
+  async updateCourse(courseId, courseData, username, password) {
+    const response = await this.api(`/courses/${courseId}`, "PUT", courseData, true, {username, password});
+    if (response.status === 204) {
+      return [];
+    }
+    else if ([400, 403].includes(response.status)) {
+      return response.json().then(data => {
+        return data.message;
+      });
+    }
+    else {
+      throw new Error();
+    }
+  }
+
+  async deleteCourse(courseId, username, password) {
+    const response = await this.api(`/courses/${courseId}`, "DELETE", null, true, {username, password});
+    if (response.status === 204) {
+      return [];
+    }
+    else if (response.status === 400) {
+      return response.json().then(data => {
+        return data.errors;
+      });
+    }
+    else {
+      throw new Error();
+    }
+  }
 }

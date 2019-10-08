@@ -39,10 +39,10 @@ const Course = db.define('course', {
         allowNull: false,
         validate: {
             notEmpty: {
-                msg: "Title is a required field"
+                msg: "Description is a required field"
             },
             notNull: {
-                msg: "Title is a required field"
+                msg: "Description is a required field"
             }
         }
     },
