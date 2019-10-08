@@ -61,7 +61,7 @@ app.use((err, req, res, next) => {
     console.error(`Global error handler: ${JSON.stringify(err.stack)}`);
   }
 
-  res.status(400).json({
+  res.status(err.status || 500).json({
     message: err.message,
     error: process.env.NODE_ENV === 'production' ? {} : err,
   });

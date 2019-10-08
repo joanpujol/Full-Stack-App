@@ -20,6 +20,7 @@ function App() {
   const CreateCourseWithContext = withContext(CreateCourse)
   const UserSignInWithContext = withContext(UserSignIn);
   const UserSignOutWithContext = withContext(UserSignOut);
+  const UserSignUpWithContext = withContext(UserSignUp);
 
   return (
     <BrowserRouter>
@@ -40,7 +41,7 @@ function App() {
               }
         />
         <Route path="/signin" component={UserSignInWithContext} />
-        <Route path="/signup" component={UserSignUp} />
+        <Route path="/signup" component={UserSignUpWithContext} />
         <Route path="/signout" component={UserSignOutWithContext} />
       </Switch>
     </BrowserRouter>

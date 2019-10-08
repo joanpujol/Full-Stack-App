@@ -7,23 +7,23 @@ class CreateCourse extends Component {
         description: "",
         estimatedTime: "",
         materialsNeeded: "",
-        errors: []
+        errors: [],
     };
 
     handleTitleChange = (e) => {
-        this.setState({title: e.target.value})
+        this.setState({title: e.target.value});
     }
 
     handleDescriptionChange = (e) => {
-        this.setState({description: e.target.value})
+        this.setState({description: e.target.value});
     }
 
     handleEstimatedTimeChange = (e) => {
-        this.setState({estimatedTime: e.target.value})
+        this.setState({estimatedTime: e.target.value});
     }
 
     handleMaterialsNeededChange = (e) => {
-        this.setState({materialsNeeded: e.target.value})
+        this.setState({materialsNeeded: e.target.value});
     }
 
     handleSubmit = (e) => {
@@ -70,7 +70,7 @@ class CreateCourse extends Component {
 
     render() {
         const { errors } = this.state;
-        const { firstName, lastName } = this.props.context.authenticatedUser
+        const { firstName, lastName } = this.props.context.authenticatedUser;
         return (
             <div className="bounds course--detail">
                 <h1>Create Course</h1>
@@ -114,7 +114,7 @@ class CreateCourse extends Component {
                                                 name="estimatedTime"
                                                 type="text"
                                                 className="course--time--input"
-                                                placeholder="Hours it will take to complete the course"
+                                                placeholder="Time, oh time"
                                                 onChange={this.handleEstimatedTimeChange} />
                                         </div>
                                     </li>
