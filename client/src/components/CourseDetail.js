@@ -43,16 +43,23 @@ class CourseDetail extends Component {
         }
     }
 
+    displayActionButtons = (userId, courseId) => {
+        const doesUserOwnCourse = this.props.context.authenticatedUser && this.props.context.authenticatedUser.id === userId;
+        return (doesUserOwnCourse ? <>
+                <Link className="button" to={`/courses/${courseId}/update`}>Update Course</Link>
+                <Link className="button" to="/">Delete Course</Link>
+            </> : null )
+    }
+
     render() {
         const courseId = this.props.match.params.id;
-        const {title, description, estimatedTime, materialsNeeded} = this.state.courseData;
+        const {title, description, estimatedTime, materialsNeeded, userId} = this.state.courseData;
         return (
             <div>
                 <div className="actions--bar">
                     <div className="bounds">
                         <div className="grid-100">
-                            <Link className="button" to={`/courses/${courseId}/update`}>Update Course</Link>
-                            <Link className="button" to="/">Delete Course</Link>
+                            {this.displayActionButtons(userId, courseId)}
                             <Link className="button button-secondary" to="/">Return to List</Link>
                         </div>
                     </div>

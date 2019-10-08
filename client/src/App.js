@@ -11,10 +11,12 @@ import CourseDetail from './components/CourseDetail';
 import CreateCourse from './components/CreateCourse';
 import UpdateCourse from './components/UpdateCourse';
 import UserSignOut from './components/UserSignOut';
+import PrivateRoute from "./PrivateRoute";
 
 function App() {
 
   const HeaderWithContext = withContext(Header);
+  const CourseDetailWithContext = withContext(CourseDetail);
   const UserSignInWithContext = withContext(UserSignIn);
   const UserSignOutWithContext = withContext(UserSignOut);
 
@@ -23,14 +25,14 @@ function App() {
       <HeaderWithContext />
       <Switch>
         <Route exact path="/" component={Courses}/>
-        <Route path="/courses/create" component={CreateCourse} />
+        <PrivateRoute path="/courses/create" component={CreateCourse} />
         <Route exact path="/courses/:id"
                render= { (props) => {
-                  return <CourseDetail {...props} />
+                  return <CourseDetailWithContext {...props} />
                 }
               }
         />
-        <Route exact path="/courses/:id/update"
+        <PrivateRoute exact path="/courses/:id/update"
                render= { (props) => {
                   return <UpdateCourse {...props} />
                 }
