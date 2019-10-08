@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
 import axios from 'axios';
+const ReactMarkdown = require('react-markdown/with-html');
 
 class CourseDetail extends Component {  
 
@@ -19,28 +20,6 @@ class CourseDetail extends Component {
             .catch(error => {
                 console.error(error);
             });
-    }
-
-    displayDescription = (description) => {
-        if(description) {
-            const descriptionParagraphs = description.split("\n\n").map((paragrpah, index) => {
-                return <p key={index}> {paragrpah} </p>
-            });
-            return descriptionParagraphs
-        }
-    }
-
-    displayMaterialsNeeded = (materialsNeeded) => {
-        if(materialsNeeded) {
-            const materialsList = materialsNeeded.substring(1).split("\n*").map((material, index) => {
-                return <li key={index}> {material} </li>
-            });
-            return (
-                <ul>
-                    {materialsList}
-                </ul>
-            )
-        }
     }
 
     displayActionButtons = (userId, courseId) => {
@@ -71,7 +50,7 @@ class CourseDetail extends Component {
                             <h3 className="course--title">{title}</h3>
                         </div>
                         <div className="course--description">
-                            {this.displayDescription(description)}
+                            <ReactMarkdown source={description} />
                         </div>
                     </div>
                     <div className="grid-25 grid-right">
@@ -83,7 +62,7 @@ class CourseDetail extends Component {
                                 </li>
                                 <li className="course--stats--list--item">
                                     <h4>Materials Needed</h4>
-                                    {this.displayMaterialsNeeded(materialsNeeded)}
+                                    <ReactMarkdown source={materialsNeeded} />
                                 </li>
                             </ul>
                         </div>
