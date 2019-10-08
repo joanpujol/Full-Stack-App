@@ -15,6 +15,8 @@ import UserSignOut from './components/UserSignOut';
 function App() {
 
   const HeaderWithContext = withContext(Header);
+  const UserSignInWithContext = withContext(UserSignIn);
+  const UserSignOutWithContext = withContext(UserSignOut);
 
   return (
     <BrowserRouter>
@@ -34,9 +36,9 @@ function App() {
                 }
               }
         />
-        <Route path="/signin" component={UserSignIn} />
+        <Route path="/signin" component={UserSignInWithContext} />
         <Route path="/signup" component={UserSignUp} />
-        <Route path="/signout" component={UserSignOut} />
+        <Route path="/signout" component={UserSignOutWithContext} />
       </Switch>
     </BrowserRouter>
   );

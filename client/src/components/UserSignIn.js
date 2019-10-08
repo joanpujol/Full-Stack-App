@@ -17,7 +17,29 @@ class UserSignIn extends Component {
     }
 
     handleSubmit = (e) => {
-        // TODO Properly handle submit
+        e.preventDefault();
+        const { context } = this.props;
+        const { from } = this.props.location.state || { from: { pathname: '/' } };
+        const { email, password } = this.state;
+
+        context.actions.signIn(email, password)
+          .then((user) => {
+            if (user === null) {
+              this.setState(() => {
+                return { errors: [ 'Sign-in was unsuccessful' ] };
+              });
+            } else {
+              this.props.history.push(from);
+            }
+          })
+          .catch((error) => {
+            console.error(error);
+            this.props.history.push('/error');
+          });
+    }
+
+    handleCancelClick = () => {
+        this.props.history.push('/');
     }
 
     render() {
@@ -26,7 +48,7 @@ class UserSignIn extends Component {
                 <div className="grid-33 centered signin">
                     <h1>Sign In</h1>
                     <div>
-                        <form onSubmit={this.handleSubmit}>
+                        <form>
                             <div>
                                 <input 
                                     id="emailAddress"
@@ -35,8 +57,7 @@ class UserSignIn extends Component {
                                     className=""
                                     placeholder="Email Address"
                                     value={this.state.email}
-                                    onChange={this.handleEmailChange}
-                                />
+                                    onChange={this.handleEmailChange} />
                             </div>
                             <div>
                                 <input 
@@ -46,12 +67,11 @@ class UserSignIn extends Component {
                                     className=""
                                     placeholder="Password"
                                     value={this.state.password}
-                                    onChange={this.handlePasswordChange}
-                                />
+                                    onChange={this.handlePasswordChange} />
                             </div>
                             <div className="grid-100 pad-bottom">
-                                <button className="button" type="submit">Sign In</button>
-                                <button className="button button-secondary" >Cancel</button>
+                                <button className="button" onClick={(e) => this.handleSubmit(e)}>Sign In</button>
+                                <button className="button button-secondary" onClick={this.handleCancelClick}>Cancel</button>
                             </div>
                         </form>
                     </div>
