@@ -22,11 +22,30 @@ class CourseDetail extends Component {
             });
     }
 
+    deleteCourse = () => {
+        const { id: courseId } = this.state.courseData;
+        const { emailAddress, password } = this.props.context.authenticatedUser;
+        this.props.context.data.deleteCourse(courseId, emailAddress, password)
+            .then( (errors) => {
+                console.log(errors)
+                if (errors.length) {
+                    this.setState({errors});
+                } else {
+                    this.props.history.push("/");
+                }
+            })
+            .catch( (error) => {
+                console.error(error);
+                const errorPath = (error.name === "notFound") ? "/notfound" : "/error";
+                this.props.history.push(errorPath);
+            });
+    }
+
     displayActionButtons = (userId, courseId) => {
         const doesUserOwnCourse = this.props.context.authenticatedUser && this.props.context.authenticatedUser.id === userId;
         return (doesUserOwnCourse ? <>
                 <Link className="button" to={`/courses/${courseId}/update`}>Update Course</Link>
-                <Link className="button" to="/">Delete Course</Link>
+                <Link className="button" onClick={this.deleteCourse} to="/">Delete Course</Link>
             </> : null )
     }
 
