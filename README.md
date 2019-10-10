@@ -1,6 +1,6 @@
 # Full Stack App
 
-![image](https://user-images.githubusercontent.com/6762884/66596633-85e0b600-eb9d-11e9-8df7-0db5f04fa112.png)
+![image](https://user-images.githubusercontent.com/6762884/66596847-eec82e00-eb9d-11e9-8f54-8d2ebe76a5a0.png)
 
 ## Description
 
@@ -16,6 +16,12 @@ For this project I've made use of:
 - React Router to set up your routes.
 - Axios to fetch data from your REST API.
 - Basic authentication to support users signing in.
+- Node
+- Express
+- Sequelize (ORM)
+- SQLite (Database)
+- basic-auth for authentication
+- bcryptjs for password encryption
 
 ## Access Locally
 

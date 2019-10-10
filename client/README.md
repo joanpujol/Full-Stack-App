@@ -1,5 +1,7 @@
 ## Description
 
+This is the client side of a Full Stack App that will provide a way for users to administer a school database containing information about courses.
+
 For this part of the project I've made use of:
 - React
 - JSX
