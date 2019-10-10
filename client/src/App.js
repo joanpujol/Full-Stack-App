@@ -1,8 +1,10 @@
 import React from "react";
-import {BrowserRouter, Switch, Route} from 'react-router-dom';
+import { BrowserRouter, Switch, Route, Redirect } from 'react-router-dom';
 import './styles/global.css';
 
 import withContext from "./Context";
+import PrivateRoute from './PrivateRoute';
+
 import Header from './components/Header';
 import Courses from './components/Courses';
 import UserSignIn from './components/UserSignIn';
@@ -11,7 +13,9 @@ import CourseDetail from './components/CourseDetail';
 import CreateCourse from './components/CreateCourse';
 import UpdateCourse from './components/UpdateCourse';
 import UserSignOut from './components/UserSignOut';
-import PrivateRoute from './PrivateRoute';
+import ErrorComponent from './components/Error';
+import Forbidden from './components/Forbidden';
+import NotFound from './components/NotFound';
 
 function App() {
 
@@ -31,12 +35,13 @@ function App() {
         <PrivateRoute path="/courses/create" component={CreateCourseWithContext} />
         <PrivateRoute path="/courses/:id/update" component={UpdateCourseWithContext} />
         <Route exact path="/courses/:id" component={CourseDetailWithContext} />
-                }
-              }
-        />
         <Route path="/signin" component={UserSignInWithContext} />
         <Route path="/signup" component={UserSignUpWithContext} />
         <Route path="/signout" component={UserSignOutWithContext} />
+        <Route path="/error" component={ErrorComponent} />
+        <Route path="/forbidden" component={Forbidden} />
+        <Route path="/notfound" component={NotFound} />
+        <Redirect to="/notfound"/>
       </Switch>
     </BrowserRouter>
   );
