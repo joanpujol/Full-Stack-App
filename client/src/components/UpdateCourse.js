@@ -4,15 +4,25 @@ import axios from 'axios';
 class UpdateCourse extends Component {
 
     state = {
-        courseData: []
+        id: "",
+        title: "",
+        description: "",
+        estimatedTime: "",
+        materialsNeeded: "",
+        errors: []
     };
 
     componentDidMount() {
         const courseId = this.props.match.params.id;
         axios.get(`http://localhost:5000/api/courses/${courseId}`)
             .then(response => {
+                const {title, description, estimatedTime, materialsNeeded} = response.data;
                 this.setState({
-                    courseData: response.data
+                    id: courseId,
+                    title,
+                    description,
+                    estimatedTime,
+                    materialsNeeded
                 });
             })
             .catch(error => {
@@ -20,8 +30,41 @@ class UpdateCourse extends Component {
             });
     }
 
+    handleTitleChange = (e) => {
+        this.setState({title: e.target.value})
+    }
+
+    handleDescriptionChange = (e) => {
+        this.setState({description: e.target.value})
+    }
+
+    handleEstimatedTimeChange = (e) => {
+        this.setState({estimatedTime: e.target.value})
+    }
+
+    handleMaterialsNeededChange = (e) => {
+        this.setState({materialsNeeded: e.target.value})
+    }
+
     handleSubmit = (e) => {
-        // TODO Properly handle submit
+        e.preventDefault();
+        const { id, title, description, estimatedTime, materialsNeeded } = this.state;
+        const { emailAddress, id: userId, password } = this.props.context.authenticatedUser;
+        const courseData = { userId, title, description, estimatedTime, materialsNeeded };
+
+        this.props.context.data.updateCourse(id, courseData, emailAddress, password)
+            .then( (errors) => {
+                if (errors.length) {
+                    this.setState({errors});
+                } else {
+                    this.props.history.push("/");
+                }
+            })
+            .catch( (error) => {
+                console.error(error);
+                const errorPath = (error.name === "notFound") ? "/notfound" : "/error";
+                this.props.history.push(errorPath);
+            });
     }
 
     handleCancelClick = (e) => {
@@ -31,12 +74,13 @@ class UpdateCourse extends Component {
     }
 
     render () {
-        const {title, description, estimatedTime, materialsNeeded} = this.state.courseData;
+        const { title, description, estimatedTime, materialsNeeded} = this.state;
+        const { firstName, lastName } = this.props.context.authenticatedUser;
         return (
             <div className="bounds course--detail">
                 <h1>Update Course</h1>
                 <div>
-                    <form onSubmit={this.handleSubmit}>
+                    <form>
                         <div className="grid-66">
                             <div className="course--header">
                                 <h4 className="course--label">Course</h4>
@@ -47,10 +91,9 @@ class UpdateCourse extends Component {
                                         type="text"
                                         className="input-title course--title--input"
                                         placeholder={title}
-                                        value=""
-                                    />        
+                                        onChange={this.handleTitleChange} />
                                 </div>
-                                <p>By (userName)</p>
+                                <p>By {`${firstName} ${lastName}`}</p>
                             </div>
                             <div className="course--description">
                                 <div>
@@ -58,7 +101,8 @@ class UpdateCourse extends Component {
                                         id="description" 
                                         name="description" 
                                         className="" 
-                                        placeholder={description} >
+                                        placeholder={description}
+                                        onChange={this.handleDescriptionChange} >
                                     </textarea>
                                 </div>
                             </div>
@@ -75,8 +119,7 @@ class UpdateCourse extends Component {
                                                 type="text"
                                                 className="course--time--input"
                                                 placeholder={estimatedTime}
-                                                value=""
-                                            />        
+                                                onChange={this.handleEstimatedTimeChange} />
                                         </div>
                                     </li>
                                     <li className="course--stats--list--item">
@@ -86,7 +129,8 @@ class UpdateCourse extends Component {
                                                 id="materialsNeeded"
                                                 name="materialsNeeded"
                                                 className=""
-                                                placeholder={materialsNeeded} >
+                                                placeholder={materialsNeeded}
+                                                onChange={this.handleMaterialsNeededChange} >
                                             </textarea>
                                         </div>
                                     </li>
@@ -94,7 +138,7 @@ class UpdateCourse extends Component {
                             </div>
                         </div>
                         <div className="grid-100 pad-bottom">
-                            <button className="button" type="submit">Update Course</button>
+                            <button className="button" type="submit" onClick={(e) => this.handleSubmit(e)}>Update Course</button>
                             <button className="button button-secondary" onClick={(e) => this.handleCancelClick(e)}>Cancel</button>
                         </div>
                     </form>

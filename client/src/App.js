@@ -11,7 +11,7 @@ import CourseDetail from './components/CourseDetail';
 import CreateCourse from './components/CreateCourse';
 import UpdateCourse from './components/UpdateCourse';
 import UserSignOut from './components/UserSignOut';
-import PrivateRoute from "./PrivateRoute";
+import PrivateRoute from './PrivateRoute';
 
 function App() {
 
@@ -21,6 +21,7 @@ function App() {
   const UserSignInWithContext = withContext(UserSignIn);
   const UserSignOutWithContext = withContext(UserSignOut);
   const UserSignUpWithContext = withContext(UserSignUp);
+  const UpdateCourseWithContext = withContext(UpdateCourse);
 
   return (
     <BrowserRouter>
@@ -28,15 +29,8 @@ function App() {
       <Switch>
         <Route exact path="/" component={Courses}/>
         <PrivateRoute path="/courses/create" component={CreateCourseWithContext} />
-        <Route exact path="/courses/:id"
-               render= { (props) => {
-                  return <CourseDetailWithContext {...props} />
-                }
-              }
-        />
-        <PrivateRoute exact path="/courses/:id/update"
-               render= { (props) => {
-                  return <UpdateCourse {...props} />
+        <PrivateRoute path="/courses/:id/update" component={UpdateCourseWithContext} />
+        <Route exact path="/courses/:id" component={CourseDetailWithContext} />
                 }
               }
         />
