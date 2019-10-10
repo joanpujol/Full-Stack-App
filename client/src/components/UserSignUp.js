@@ -118,8 +118,8 @@ class UserSignUp extends Component {
                             </div>
                             <div>
                                 <input 
-                                    id="confirmPassword"
-                                    name="confirmPassword"
+                                    id="passwordConfirmation"
+                                    name="passwordConfirmation"
                                     type="password"
                                     className=""
                                     placeholder="Confirm Password"
