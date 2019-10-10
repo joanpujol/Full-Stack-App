@@ -19,7 +19,7 @@ class UserSignIn extends Component {
     handleSubmit = (e) => {
         e.preventDefault();
         const { context } = this.props;
-        const { from } = this.props.location.state || { from: { pathname: '/' } };
+        const previousPage = this.props.context.previousPage
         const { email, password } = this.state;
 
         context.actions.signIn(email, password)
@@ -29,7 +29,7 @@ class UserSignIn extends Component {
                 return { errors: [ 'Sign-in was unsuccessful' ] };
               });
             } else {
-              this.props.history.push(from);
+              this.props.history.push(previousPage);
             }
           })
           .catch((error) => {

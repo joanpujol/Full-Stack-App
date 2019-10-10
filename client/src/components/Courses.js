@@ -18,6 +18,7 @@ class Courses extends Component {
             .catch(error => {
                 console.error(error);
             });
+        this.props.context.previousPage = "/";
     }
 
     render() {              

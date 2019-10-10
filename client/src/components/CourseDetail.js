@@ -20,6 +20,7 @@ class CourseDetail extends Component {
             .catch(error => {
                 console.error(error);
             });
+        this.props.context.previousPage = `/courses/${courseId}`;
     }
 
     deleteCourse = () => {
@@ -36,7 +37,7 @@ class CourseDetail extends Component {
             })
             .catch( (error) => {
                 console.error(error);
-                const errorPath = (error.name === "notFound") ? "/notfound" : "/error";
+                const errorPath = (error.message === "Request failed with status code 404") ? "/notfound" : "/error";
                 this.props.history.push(errorPath);
             });
     }

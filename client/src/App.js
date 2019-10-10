@@ -19,6 +19,7 @@ import NotFound from './components/NotFound';
 
 function App() {
 
+  const CoursesWithContext = withContext(Courses);
   const HeaderWithContext = withContext(Header);
   const CourseDetailWithContext = withContext(CourseDetail);
   const CreateCourseWithContext = withContext(CreateCourse)
@@ -31,7 +32,7 @@ function App() {
     <BrowserRouter>
       <HeaderWithContext />
       <Switch>
-        <Route exact path="/" component={Courses}/>
+        <Route exact path="/" component={CoursesWithContext}/>
         <PrivateRoute path="/courses/create" component={CreateCourseWithContext} />
         <PrivateRoute path="/courses/:id/update" component={UpdateCourseWithContext} />
         <Route exact path="/courses/:id" component={CourseDetailWithContext} />
