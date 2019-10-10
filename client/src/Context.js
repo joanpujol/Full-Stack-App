@@ -45,12 +45,15 @@ export class Provider extends Component {
       const cookieOptions = {
         expires: 1 // 1 day
       };
+      // The app persists user credentials using an HTTP cookie or local storage
+      // so that the user's authenticated state is maintained even if the application is reloaded or loaded into a new browser tab.
       Cookies.set('authenticatedUser', JSON.stringify(user), cookieOptions);
     }
     return user;
   }
 
   signOut = () => {
+    // Removes the authenticated user's information (including their password) from the global state.
     this.setState({ authenticatedUser: null });
     Cookies.remove('authenticatedUser');
   }

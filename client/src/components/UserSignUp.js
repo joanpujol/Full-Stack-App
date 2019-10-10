@@ -12,29 +12,19 @@ class UserSignUp extends Component {
         errors: [],
     };
 
-    handleFirstNameChange = (e) => {
-        this.setState({firstName: e.target.value});
-    }
+    change = (event) => {
+        const name = event.target.name;
+        const value = event.target.value;
 
-    handleLastNameChange = (e) => {
-        this.setState({lastName: e.target.value});
-    }
-
-    handleEmailAddressChange = (e) => {
-        this.setState({emailAddress: e.target.value});
-    }
-
-    handlePasswordChange = (e) => {
-        this.setState({password: e.target.value});
-    }
-
-    handlePasswordConfirmationChange = (e) => {
-        this.setState({passwordConfirmation: e.target.value});
+        this.setState(() => {
+          return {
+            [name]: value
+          };
+        });
     }
 
     handleSubmit = (e) => {
         e.preventDefault();
-        console.log(this.state.errors)
         const {firstName, lastName, emailAddress, password, passwordConfirmation} = this.state;
 
         if (password !== passwordConfirmation) {
@@ -45,7 +35,6 @@ class UserSignUp extends Component {
             const newUser = {firstName, lastName, emailAddress, password};
             this.props.context.data.createUser(newUser)
                 .then((errors) => {
-                    console.log(errors);
                     if (errors.length) {
                         this.setState({errors});
                     } else {
@@ -56,7 +45,7 @@ class UserSignUp extends Component {
                     }
                 })
                 .catch( (error) => {
-                    console.log(error);
+                    console.error(error);
                     this.props.history.push('/error');
                 });
         }
@@ -98,7 +87,7 @@ class UserSignUp extends Component {
                                     name="firstName"
                                     className=""
                                     placeholder="First Name"
-                                    onChange={this.handleFirstNameChange} />
+                                    onChange={this.change} />
                             </div>
                             <div>
                                 <input 
@@ -107,7 +96,7 @@ class UserSignUp extends Component {
                                     type="text"
                                     className=""
                                     placeholder="Last Name"
-                                    onChange={this.handleLastNameChange} />
+                                    onChange={this.change} />
                             </div>
                             <div>
                                 <input 
@@ -116,7 +105,7 @@ class UserSignUp extends Component {
                                     type="text"
                                     className=""
                                     placeholder="Email Address"
-                                    onChange={this.handleEmailAddressChange} />
+                                    onChange={this.change} />
                             </div>
                             <div>
                                 <input 
@@ -125,7 +114,7 @@ class UserSignUp extends Component {
                                     type="password"
                                     className=""
                                     placeholder="Password"
-                                    onChange={this.handlePasswordChange} />
+                                    onChange={this.change} />
                             </div>
                             <div>
                                 <input 
@@ -134,7 +123,7 @@ class UserSignUp extends Component {
                                     type="password"
                                     className=""
                                     placeholder="Confirm Password"
-                                    onChange={this.handlePasswordConfirmationChange} />
+                                    onChange={this.change} />
                             </div>
                             <div className="grid-100 pad-bottom">
                                 <button className="button" type="submit" onClick={(e) => this.handleSubmit(e)}>Sign Up</button>

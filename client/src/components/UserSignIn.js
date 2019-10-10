@@ -2,6 +2,11 @@ import React, {Component} from 'react';
 import { Link } from 'react-router-dom';
 
 class UserSignIn extends Component {
+    /*
+    This component renders a form allowing the user to sign in using their existing account information,
+    there is a "Sign In" button that when clicked signs in the user,
+    and a "Cancel" button that returns the user to the default route (i.e. the list of courses).
+    */
 
     state = {
         email: "",
@@ -25,16 +30,17 @@ class UserSignIn extends Component {
         context.actions.signIn(email, password)
           .then((user) => {
             if (user === null) {
-              this.setState(() => {
-                return { errors: [ 'Sign-in was unsuccessful' ] };
-              });
+                this.setState(() => {
+                    return { errors: [ 'Sign-in was unsuccessful' ] };
+                });
             } else {
-              this.props.history.push(previousPage);
+                // Redirects users back to the previous screen after successfully signing in.
+                this.props.history.push(previousPage);
             }
           })
           .catch((error) => {
-            console.error(error);
-            this.props.history.push('/error');
+              console.error(error);
+              this.props.history.push('/error');
           });
     }
 

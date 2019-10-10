@@ -10,20 +10,16 @@ class CreateCourse extends Component {
         errors: [],
     };
 
-    handleTitleChange = (e) => {
-        this.setState({title: e.target.value});
-    }
+    change = (event) => {
+        // This function handles all user input to set it as component state
+        const name = event.target.name;
+        const value = event.target.value;
 
-    handleDescriptionChange = (e) => {
-        this.setState({description: e.target.value});
-    }
-
-    handleEstimatedTimeChange = (e) => {
-        this.setState({estimatedTime: e.target.value});
-    }
-
-    handleMaterialsNeededChange = (e) => {
-        this.setState({materialsNeeded: e.target.value});
+        this.setState(() => {
+          return {
+            [name]: value
+          };
+        });
     }
 
     handleSubmit = (e) => {
@@ -32,16 +28,20 @@ class CreateCourse extends Component {
         const { emailAddress, id: userId, password } = this.props.context.authenticatedUser;
         const courseData = { userId, title, description, estimatedTime, materialsNeeded };
 
+        // When all the necessary information the make the POST request is gathered, the function is called
+        // and then the user is redirected to the home page.
         this.props.context.data.createCourse(courseData, emailAddress, password)
             .then( (errors) => {
                 if (errors.length) {
+                    // If any errors are returned from the api they will be displayed
                     this.setState({errors});
                 } else {
                     this.props.history.push("/");
                 }
             })
             .catch( (error) => {
-                console.log(error);
+                console.error(error);
+                // If anything fails in all this process, the user will be redirected to the error page
                 this.props.history.push('/error');
             });
     }
@@ -52,6 +52,8 @@ class CreateCourse extends Component {
     }
 
     displayValidationErrors = (errors) => {
+        // All validation errors will be shown through this function, which returns a list of JSX div elements
+        // displaying the errors
         return (
             errors.length ?
                 <div>
@@ -86,7 +88,7 @@ class CreateCourse extends Component {
                                         type="text"
                                         className="input-title course--title--input"
                                         placeholder="Course title"
-                                        onChange={this.handleTitleChange}  />
+                                        onChange={this.change}  />
                                 </div>
                                 <p>By {`${firstName} ${lastName}`}</p>
                             </div>
@@ -97,7 +99,7 @@ class CreateCourse extends Component {
                                         name="description"
                                         className=""
                                         placeholder="Course description"
-                                        onChange={this.handleDescriptionChange}  >
+                                        onChange={this.change}  >
                                     </textarea>
                                 </div>
                             </div>
@@ -114,7 +116,7 @@ class CreateCourse extends Component {
                                                 type="text"
                                                 className="course--time--input"
                                                 placeholder="Time, oh time"
-                                                onChange={this.handleEstimatedTimeChange} />
+                                                onChange={this.change} />
                                         </div>
                                     </li>
                                     <li className="course--stats--list--item">
@@ -125,7 +127,7 @@ class CreateCourse extends Component {
                                                 name="materialsNeeded"
                                                 className=""
                                                 placeholder="Materials needed"
-                                                onChange={this.handleMaterialsNeededChange} >
+                                                onChange={this.change} >
                                             </textarea>
                                         </div>
                                     </li>

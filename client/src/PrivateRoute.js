@@ -3,6 +3,10 @@ import { Route, Redirect } from 'react-router-dom';
 import { Consumer } from './Context';
 
 const PrivateRoute = ({ component: Component, ...rest }) => {
+  /*
+  This component is used to configure protected routes (i.e. routes that require authentication).
+  */
+
   return (
     <Consumer>
       {context => (

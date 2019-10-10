@@ -3,12 +3,17 @@ import { Link } from 'react-router-dom';
 import axios from 'axios';
 
 class Courses extends Component {
+    /*
+    This component retrieves the list of courses from the REST API, renders a list of courses,
+    links each course to its respective "Course Detail" screen, and renders a link to the "Create Course" screen.
+    */
 
     state = {
         courses: []
     };
 
-    componentDidMount() {    
+    componentDidMount() {
+        // When the component is mounted, it gets all the course information from the api
         axios.get('http://localhost:5000/api/courses')
             .then(response => {
                 this.setState({
@@ -18,10 +23,12 @@ class Courses extends Component {
             .catch(error => {
                 console.error(error);
             });
+        // The previousPage is set to return back from the log in page
         this.props.context.previousPage = "/";
     }
 
-    render() {              
+    render() {
+        // This variable hold the list of course JSX cards
         let courseList = this.state.courses.map(course =>
             <div key={course.id} className="grid-33">
                 <Link className="course--module course--link" to={`/courses/${course.id}`} >

@@ -12,6 +12,17 @@ class UpdateCourse extends Component {
         errors: []
     };
 
+    change = (event) => {
+        const name = event.target.name;
+        const value = event.target.value;
+
+        this.setState(() => {
+          return {
+            [name]: value
+          };
+        });
+    }
+
     componentDidMount() {
         const courseId = this.props.match.params.id;
         axios.get(`http://localhost:5000/api/courses/${courseId}`)
@@ -19,6 +30,7 @@ class UpdateCourse extends Component {
                 const {title, description, estimatedTime, materialsNeeded, userId} = response.data;
                 const { id: authUserId, } = this.props.context.authenticatedUser;
 
+                // Redirects users to the /forbidden path if the requested course isn't owned by the authenticated user.
                 if(userId !== authUserId) {
                     this.props.history.push("/forbidden");
                 } else {
@@ -38,22 +50,6 @@ class UpdateCourse extends Component {
             });
     }
 
-    handleTitleChange = (e) => {
-        this.setState({title: e.target.value})
-    }
-
-    handleDescriptionChange = (e) => {
-        this.setState({description: e.target.value})
-    }
-
-    handleEstimatedTimeChange = (e) => {
-        this.setState({estimatedTime: e.target.value})
-    }
-
-    handleMaterialsNeededChange = (e) => {
-        this.setState({materialsNeeded: e.target.value})
-    }
-
     handleSubmit = (e) => {
         e.preventDefault();
         const { id, title, description, estimatedTime, materialsNeeded } = this.state;
@@ -70,8 +66,7 @@ class UpdateCourse extends Component {
             })
             .catch( (error) => {
                 console.error(error);
-                const errorPath = (error.name === "notFound") ? "/notfound" : "/error";
-                this.props.history.push(errorPath);
+                this.props.history.push("/error");
             });
     }
 
@@ -116,7 +111,7 @@ class UpdateCourse extends Component {
                                         type="text"
                                         className="input-title course--title--input"
                                         placeholder={title}
-                                        onChange={this.handleTitleChange} />
+                                        onChange={this.change} />
                                 </div>
                                 <p>By {`${firstName} ${lastName}`}</p>
                             </div>
@@ -127,7 +122,7 @@ class UpdateCourse extends Component {
                                         name="description" 
                                         className="" 
                                         placeholder={description}
-                                        onChange={this.handleDescriptionChange} >
+                                        onChange={this.change} >
                                     </textarea>
                                 </div>
                             </div>
@@ -144,7 +139,7 @@ class UpdateCourse extends Component {
                                                 type="text"
                                                 className="course--time--input"
                                                 placeholder={estimatedTime}
-                                                onChange={this.handleEstimatedTimeChange} />
+                                                onChange={this.change} />
                                         </div>
                                     </li>
                                     <li className="course--stats--list--item">
@@ -155,7 +150,7 @@ class UpdateCourse extends Component {
                                                 name="materialsNeeded"
                                                 className=""
                                                 placeholder={materialsNeeded}
-                                                onChange={this.handleMaterialsNeededChange} >
+                                                onChange={this.change} >
                                             </textarea>
                                         </div>
                                     </li>
