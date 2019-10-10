@@ -73,13 +73,30 @@ class UpdateCourse extends Component {
         this.props.history.push(`/courses/${courseId}`);
     }
 
+    displayValidationErrors = (errors) => {
+        return (
+            errors.length ?
+                <div>
+                    <h2 className="validation--errors--label">Validation errors</h2>
+                    <div className="validation-errors">
+                        <ul>
+                            {errors.map((error, i) => {
+                                return <li key={i}> {error.message} </li>
+                            })}
+                        </ul>
+                    </div>
+                </div> : null
+        )
+    }
+
     render () {
-        const { title, description, estimatedTime, materialsNeeded} = this.state;
+        const { title, description, estimatedTime, materialsNeeded, errors} = this.state;
         const { firstName, lastName } = this.props.context.authenticatedUser;
         return (
             <div className="bounds course--detail">
                 <h1>Update Course</h1>
                 <div>
+                    {this.displayValidationErrors(errors)}
                     <form>
                         <div className="grid-66">
                             <div className="course--header">
