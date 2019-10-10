@@ -1,6 +1,6 @@
 # Full Stack App
 
-![image](https://user-images.githubusercontent.com/6762884/66595492-5af56280-eb9b-11e9-8264-0de66165368e.png)
+![image](https://user-images.githubusercontent.com/6762884/66596633-85e0b600-eb9d-11e9-8df7-0db5f04fa112.png)
 
 ## Description
 

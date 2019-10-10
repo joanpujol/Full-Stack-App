@@ -1,3 +1,5 @@
+## Description
+
 For this part of the project I've made use of:
 - React
 - JSX
