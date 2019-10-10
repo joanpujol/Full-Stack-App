@@ -25,7 +25,7 @@ class UserSignIn extends Component {
     handleSubmit = (e) => {
         e.preventDefault();
         const { context } = this.props;
-        const previousPage = this.props.context.previousPage
+        const previousPage = this.props.context.previousPage || "/";
         const { email, password } = this.state;
 
         context.actions.signIn(email, password)
@@ -48,7 +48,6 @@ class UserSignIn extends Component {
     }
 
     displayValidationErrors = (errors) => {
-        console.log(errors)
         return (
             errors.length ?
                 <div>
