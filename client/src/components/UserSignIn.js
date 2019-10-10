@@ -10,7 +10,8 @@ class UserSignIn extends Component {
 
     state = {
         email: "",
-        password: ""
+        password: "",
+        errors: []
     };
 
     handleEmailChange = (e) => {
@@ -30,9 +31,7 @@ class UserSignIn extends Component {
         context.actions.signIn(email, password)
           .then((user) => {
             if (user === null) {
-                this.setState(() => {
-                    return { errors: [ 'Sign-in was unsuccessful' ] };
-                });
+                this.setState({ errors: [{message: 'An error occurred while signing, wrong email and/or password'}] });
             } else {
                 // Redirects users back to the previous screen after successfully signing in.
                 this.props.history.push(previousPage);
@@ -48,12 +47,31 @@ class UserSignIn extends Component {
         this.props.history.push('/');
     }
 
+    displayValidationErrors = (errors) => {
+        console.log(errors)
+        return (
+            errors.length ?
+                <div>
+                    <h2 className="validation--errors--label">Validation errors</h2>
+                    <div className="validation-errors">
+                        <ul>
+                            {errors.map((error, i) => {
+                                return <li key={i}> {error.message} </li>
+                            })}
+                        </ul>
+                    </div>
+                </div> : null
+        )
+    }
+
     render() {
+        const { errors } = this.state;
         return (
             <div className="bounds">
                 <div className="grid-33 centered signin">
                     <h1>Sign In</h1>
                     <div>
+                        {this.displayValidationErrors(errors)}
                         <form>
                             <div>
                                 <input 
