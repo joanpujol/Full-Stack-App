@@ -27,6 +27,8 @@ class UpdateCourse extends Component {
             })
             .catch(error => {
                 console.error(error);
+                const errorPath = (error.message === "Request failed with status code 404") ? "/notfound" : "/error";
+                this.props.history.push(errorPath);
             });
     }
 

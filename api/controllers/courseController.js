@@ -18,6 +18,10 @@ exports.addCourse = async (userId, title, description, estimatedTime, materialsN
 
 exports.getCourse = async (courseId) => {
     const course = await Course.findByPk(courseId);
+    if (!course) {
+        return new controllerResponse(404);
+    }
+
     const { id, userId, title, description, estimatedTime, materialsNeeded } = course;
     return new controllerResponse(200, {id, userId, title, description, estimatedTime, materialsNeeded });
 }
