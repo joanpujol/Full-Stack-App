@@ -31,6 +31,7 @@ To download the project and run it on your computer you will need to execute the
 git clone https://github.com/joanpujol/Full-Stack-App.git
 cd Full-Stack-App/api
 npm install
+npm run seed
 npm start
 ```
 
