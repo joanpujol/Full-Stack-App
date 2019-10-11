@@ -51,7 +51,7 @@ class UserSignUp extends Component {
         }
     }
 
-    handleCancel = (e) => {
+    handleCancelClick = (e) => {
         e.preventDefault();
         this.props.history.push("/");
     }
