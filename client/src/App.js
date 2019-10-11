@@ -13,7 +13,7 @@ import CourseDetail from './components/CourseDetail';
 import CreateCourse from './components/CreateCourse';
 import UpdateCourse from './components/UpdateCourse';
 import UserSignOut from './components/UserSignOut';
-import ErrorComponent from './components/Error';
+import UnhandledError from './components/UnhandledError';
 import Forbidden from './components/Forbidden';
 import NotFound from './components/NotFound';
 
@@ -39,7 +39,7 @@ function App() {
         <Route path="/signin" component={UserSignInWithContext} />
         <Route path="/signup" component={UserSignUpWithContext} />
         <Route path="/signout" component={UserSignOutWithContext} />
-        <Route path="/error" component={ErrorComponent} />
+        <Route path="/error" component={UnhandledError} />
         <Route path="/forbidden" component={Forbidden} />
         <Route path="/notfound" component={NotFound} />
         <Redirect to="/notfound"/>

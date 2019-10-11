@@ -1,6 +1,6 @@
 import React from 'react';
 
-const ErrorComponent = (props) => {
+const UnhandledError = (props) => {
     /*
     The component renders a message letting the user know that an unexpected error has occurred.
     */
@@ -13,4 +13,4 @@ const ErrorComponent = (props) => {
     );
 }
 
-export default ErrorComponent;
+export default UnhandledError;
