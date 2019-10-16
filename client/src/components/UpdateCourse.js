@@ -84,7 +84,7 @@ class UpdateCourse extends Component {
                     <div className="validation-errors">
                         <ul>
                             {errors.map((error, i) => {
-                                return <li key={i}> {error.message} </li>
+                                return <li key={i}> {error} </li>
                             })}
                         </ul>
                     </div>
@@ -111,7 +111,8 @@ class UpdateCourse extends Component {
                                         type="text"
                                         className="input-title course--title--input"
                                         placeholder={title}
-                                        onChange={this.change} />
+                                        onChange={this.change}
+                                        value={this.state.title} />
                                 </div>
                                 <p>By {`${firstName} ${lastName}`}</p>
                             </div>
@@ -122,7 +123,8 @@ class UpdateCourse extends Component {
                                         name="description" 
                                         className="" 
                                         placeholder={description}
-                                        onChange={this.change} >
+                                        onChange={this.change}
+                                        value={this.state.description} >
                                     </textarea>
                                 </div>
                             </div>
@@ -139,7 +141,8 @@ class UpdateCourse extends Component {
                                                 type="text"
                                                 className="course--time--input"
                                                 placeholder={estimatedTime}
-                                                onChange={this.change} />
+                                                onChange={this.change}
+                                                value={this.state.estimatedTime} />
                                         </div>
                                     </li>
                                     <li className="course--stats--list--item">
@@ -150,7 +153,8 @@ class UpdateCourse extends Component {
                                                 name="materialsNeeded"
                                                 className=""
                                                 placeholder={materialsNeeded}
-                                                onChange={this.change} >
+                                                onChange={this.change}
+                                                value={this.state.materialsNeeded} >
                                             </textarea>
                                         </div>
                                     </li>

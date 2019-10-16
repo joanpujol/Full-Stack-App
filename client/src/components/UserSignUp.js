@@ -23,15 +23,44 @@ class UserSignUp extends Component {
         });
     }
 
+    isFormValidated = (firstName, lastName, emailAddress, password, passwordConfirmation) => {
+        let errorList = [];
+        if(firstName === "" || lastName === "") {
+            errorList.push({message: "First and last name can't be left empty."});
+        }
+
+        if(password === "") {
+            errorList.push({message: "Password can't be left empty."});
+        }
+
+        if(emailAddress === "") {
+            errorList.push({message: "Email Address can't be left empty."});
+        }
+
+        if(password === passwordConfirmation && password === "") {
+            errorList.push({message: "It's required to confirm the password."});
+        }
+
+        if(password !== passwordConfirmation) {
+            errorList.push({message: "Confirmation password does not match password."});
+        }
+
+        if(errorList.length > 0) {
+            this.setState({
+                errors: errorList
+            });
+            return false;
+        }
+
+        return true;
+    }
+
     handleSubmit = (e) => {
         e.preventDefault();
         const {firstName, lastName, emailAddress, password, passwordConfirmation} = this.state;
 
-        if (password !== passwordConfirmation) {
-            this.setState({
-                errors: [{message: "Confirmation password does not match password."}]
-            });
-        } else {
+        // Front-end validation can help reduce server load with unnecessary requests
+        if (this.isFormValidated(firstName, lastName, emailAddress, password, passwordConfirmation)) {
             const newUser = {firstName, lastName, emailAddress, password};
             this.props.context.data.createUser(newUser)
                 .then((errors) => {
