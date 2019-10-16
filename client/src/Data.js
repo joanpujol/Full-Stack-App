@@ -75,7 +75,11 @@ export default class Data {
     }
     else if ([400, 403].includes(response.status)) {
       return response.json().then(data => {
-        return data.errors;
+        if(data.message) {
+          return [data.message];
+        } else {
+          return data.errors
+        }
       });
     }
     else {
